@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Power BI Portfolio</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ================= ROOT VARIABLES ================= */
+   :root {
+  --bg: #0b1220;
+  --card: rgba(17, 24, 39, 0.55);
+  --text: #e5e7eb;
+  --accent: #facc15;
+
+  /* NAV */
+  --nav-bg: rgba(2, 6, 23, 0.85);
+  --nav-text: #e5e7eb;
+}
+
+    .light {
+      --bg: #f8fafc;
+      --card: rgba(255, 255, 255, 0.7);
+      --text: #0f172a;
+      --nav-bg: rgba(255, 255, 255, 0.95);
+      --nav-text: #0f172a;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Inter, sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background:
+        radial-gradient(circle at 15% 20%, rgba(250, 204, 21, 0.12), transparent 40%),
+        radial-gradient(circle at 85% 15%, rgba(56, 189, 248, 0.12), transparent 45%),
+        var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ================= NAVBAR ================= */
+   nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: var(--nav-bg);
+  backdrop-filter: blur(12px);
+  padding: 14px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  transition: background .4s ease;
+}
+
+    nav h2 {
+      color: var(--accent);
+    }
+
+    nav a {
+  color: var(--nav-text);
+  text-decoration: none;
+  margin-left: 22px;
+  font-weight: 600;
+  transition: color .3s ease;
+}
+
+nav a:hover {
+  color: var(--accent);
+}
+
+
+    .toggle {
+      margin-left: 20px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: none;
+      background: var(--accent);
+      color: #020617;
+      font-weight:600;
+      cursor: pointer;
+    }
+
+    /* ================= HERO ================= */
+    header {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 120px 20px 60px;
+    }
+
+    /* ================= POWER BI LOGO ================= */
+    .pbi-wrap {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 25px;
+    }
+
+    .pbi-logo {
+      width: 90px;
+      animation: float 3.5s ease-in-out infinite;
+      cursor: pointer;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* ================= DAX TOOLTIP ================= */
+    .dax-tooltip {
+      position: absolute;
+      bottom: -55px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #020617;
+      color: var(--accent);
+      padding: 10px 14px;
+      font-size: 0.8rem;
+      border-radius: 10px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      width: 0;
+      overflow: hidden;
+      border-right: 2px solid var(--accent);
+    }
+
+    .pbi-wrap:hover .dax-tooltip {
+      opacity: 1;
+      animation: daxType 3s steps(40, end) forwards;
+    }
+
+    @keyframes daxType {
+      from { width: 0; }
+      to { width: 340px; }
+    }
+
+    /* ================= TAGS ================= */
+    .tags span {
+      display: inline-block;
+      margin: 6px;
+      padding: 8px 18px;
+      border-radius: 20px;
+      background: rgba(250, 204, 21, 0.15);
+      color: var(--accent);
+      font-weight: 600;
+      position: relative;
+      cursor: help;
+    }
+
+    .tags span::after {
+      content: attr(data-tip);
+      position: absolute;
+      bottom: 140%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #020617;
+      color: #e5e7eb;
+      padding: 8px 12px;
+      font-size: 0.75rem;
+      border-radius: 8px;
+      opacity: 0;
+      transition: 0.3s;
+      white-space: nowrap;
+    }
+
+    .tags span:hover::after {
+      opacity: 1;
+    }
+
+    /* ================= SECTIONS ================= */
+    section {
+      padding: 90px 30px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 50px;
+      color: var(--accent);
+    }
+
+    /* ================= GLASS CARD ================= */
+    .card {
+      background: var(--card);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 25px;
+      border-radius: 18px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+    }
+
+    /* ================= TIMELINE ================= */
+    .timeline {
+      position: relative;
+      max-width: 700px;
+      margin: auto;
+      padding-left: 40px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 10px;
+      top: 0;
+      width: 4px;
+      height: 0;
+      background: linear-gradient(to bottom, var(--accent), #38bdf8);
+      transition: height 1.3s ease;
+    }
+
+    .timeline.show::before {
+      height: 100%;
+    }
+
+    .timeline-item {
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -36px;
+      top: 6px;
+      width: 16px;
+      height: 16px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(250, 204, 21, 0.6); }
+      70% { box-shadow: 0 0 0 12px rgba(250, 204, 21, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(250, 204, 21, 0); }
+    }
+
+    /* ================= DASHBOARD ================= */
+    .dashboard-img {
+      width: 100%;
+      border-radius: 16px;
+      cursor: pointer;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    }
+
+    /* ================= MODAL ================= */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: var(--card);
+      backdrop-filter: blur(18px);
+      padding: 20px;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 900px;
+    }
+
+    .modal img {
+      width: 100%;
+      border-radius: 12px;
+    }
+
+    .close {
+      float: right;
+      cursor: pointer;
+      color: var(--accent);
+    }
+
+    /* ================= CONTACT ================= */
+    .contact {
+      text-align: center;
+    }
+
+    .contact a {
+      display: inline-block;
+      margin: 10px;
+      padding: 12px 28px;
+      border-radius: 30px;
+      background: var(--accent);
+      color: #020617;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* ================= REVEAL ANIMATION ================= */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    .reveal.show {
+      opacity: 1;
+      transform: translateY(0);
+      transition: 0.8s ease;
+    }
+
+    /* ================= MOBILE ================= */
+    @media (max-width: 600px) {
+      nav {
+        padding: 14px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ================= NAV ================= -->
+  <nav>
+    <h2>Data Analyst Portfolio</h2>
+    <div>
+      <a href="#about">About</a>
+      <a href="#internship">Internship</a>
+      <a href="#dashboards">Dashboards</a>
+      <a href="#contact">Contact</a>
+      <button class="toggle" onclick="toggleMode()">☀ / 🌙</button>
+    </div>
+  </nav>
+
+  <!-- ================= HERO ================= -->
+  <header id="about" class="reveal">
+    <div>
+      <div class="pbi-wrap">
+        <!-- Power BI SVG -->
+        <svg class="pbi-logo" viewBox="0 0 120 120">
+          <rect x="20" y="40" width="18" height="50" rx="6" fill="#facc15">
+            <animate attributeName="height" values="30;55;30" dur="1.4s" repeatCount="indefinite" />
+            <animate attributeName="y" values="60;35;60" dur="1.4s" repeatCount="indefinite" />
+          </rect>
+          <rect x="50" y="25" width="18" height="65" rx="6" fill="#facc15">
+            <animate attributeName="height" values="45;70;45" dur="1.4s" begin=".15s" repeatCount="indefinite" />
+            <animate attributeName="y" values="45;20;45" dur="1.4s" begin=".15s" repeatCount="indefinite" />
+          </rect>
+          <rect x="80" y="50" width="18" height="40" rx="6" fill="#facc15">
+            <animate attributeName="height" values="25;45;25" dur="1.4s" begin=".3s" repeatCount="indefinite" />
+            <animate attributeName="y" values="65;45;65" dur="1.4s" begin=".3s" repeatCount="indefinite" />
+          </rect>
+        </svg>
+
+        <div class="dax-tooltip">
+          Proficient in Power BI,SQL,Advance Excel,Python. 
+        </div>
+      </div>
+
+      <h1>SANDEEP SEMWAL</h1>
+      <p>Data Analyst | Power BI |Excel | Python |Data visualization </p>
+      <h3>--------------------------------------------------------------</h3>
+      <p> Entry-level Power BI Data Analyst with hands on experience in data cleaning,data modeling,ETL processes, 
+        and interactive Dashboard development.Proficient in Power BI, DAX, SQL, Advance Excel, and Python.
+         Experienced in transforming raw data Into meaningful insights to support business decision-making.
+         Strong understanding of data visualization,reporting, and analytics through real-world internship and project experience.</p>
+
+      <div class="tags">
+        <span data-tip="Interactive dashboards">Power BI</span>
+        <span data-tip="CALCULATE, FILTER, Time Intelligence">DAX</span>
+        <span data-tip="Data transformation">Power Query</span>
+        <span data-tip="Insertion,Create table">SQL</span>
+        <span data-tip="Numpy Pandas, Basic data analysis">Python</span>
+        <span data-tip="Advance formulas,Pivot Table">Advance Excel</span>
+        <span data-tip="Formulas, Play with data ">Google Sheet</span>
+        <span data-tip="Edit Image">Canva</span>
+        <span data-tip="Chatgpt,gemini and many more">Chatgpt</span>
+        <span data-tip="Chatgpt,gemini and many more">Gemini</span>
+        <span data-tip="Chatgpt,gemini and many more">Perplexity</span>
+      </div>
+    </div>
+  </header>
+
+
+<!--=====================CERTIFICATION============-->
+
+<section id="internship" class="reveal">
+    <h2>Certifications</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <h3>Data Analytics and Visualization Certification</h3>
+      </div>
+
+	<div class="timeline-item">
+        <h3>Inturnship Certificate</h3>
+        </div>
+      <div class="timeline-item">
+        <h3>Java (DOEACC)</h3>
+         
+      </div>
+
+ 	<div class="timeline-item">
+        <h3>C++ (DOEACC)</h3>
+        </div>
+
+	<div class="timeline-item">
+        <h3>CCC</h3>
+        </div>
+    </div>
+
+  </section>
+
+
+
+
+
+  <!-- ================= INTERNSHIP ================= -->
+  <section id="internship" class="reveal">
+    <h2>Internship Timeline</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <h3>SvisionTek Consultancy Services Private Limited | New Delhi </h3>
+        <p>June 2025 - Sept 2025</p>
+        <p>-Analyzed school admission and sales datasets using Excel,SQL,and PowerBI</p>
+        <p>-Built interactive dashboards to track KPIs,trends and performane metrics </p>
+        <p>-Identified key patterns that improved revenue forecasting accuracy by 15% </p>
+      </div>
+      <div class="timeline-item">
+        <h3>Sales Analysis Dashboard</h3>
+        <p>- Designed a Power BI sales dashboard to analyze revenue, growth trends, and KPIs</p>
+        
+      </div>
+      <div class="timeline-item">
+        <h3>School Admission Analysis Dashboard</h3>
+         <p>- Developed an interactive Power BI dashboard to monitor admissions and application status</p>
+        
+      </div>
+    </div>
+
+  </section>
+
+<!--====================== PROJECTS==============--->
+
+  <section id="internship" class="reveal">
+    <h2>Projects Timeline</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <h3>Sales Analysis Dashboard-(Excel+PowerBI)</h3>
+        <p>- Designed a Power BI sales dashboard to analyze revenue, growth trends, and KPIs.</p>
+        <p>- Used DAX measures for sales growth, YoY comparison, and performance tracking.</p>
+        <p>- Provided actionable insights to support business decisions.</p>
+      </div>
+      <div class="timeline-item">
+        <h3>School Admission Analysis Dashboard-(Excel+SQL+PowerBI)</h3>
+         <p>- Developed an interactive Power BI dashboard to monitor admissions and application status.</p>
+         <p>- Implemented slicers, filters, and drill-through features for real-time insights.</p>
+         <p>- Supported management in data-driven planning and decision-making.</p>
+      </div>
+      <div class="timeline-item">
+        <h3>Food Delivery Sales Dashboard-(Power BI + Excel)</h3>
+         <p>- Built an interactrive Food Delivery Sales Dashboard using Power BI.</p>
+	 <p>- Analyzed key KPIs including Total Sales, Total Orders, and Average Order Value.</P>
+         <p>- Implemented dynamic slicers for month,city and veg/nonveg categoriers, filters, and drill-through features for real-time insights.</p>
+         <p>- Visualized slaes trends and month-over-month performance for better insights.</p>
+	 <p>- Identified top-performing cities and states using bar charts.</p>
+	 <p>- Compared actual vs forecast sales to support decision making.</p>
+	 <p> Used donut charts,maps, and KPIs for clear and engaging storytelling.</p>
+	 <p>- Demonstrated skills in DAX, dta modeling, and dashboard design.</p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ================= DASHBOARD ================= -->
+  <section id="dashboards" class="reveal">
+    <h2>Dashboard Snapshot</h2>
+    <div class="card">
+      <img class="dashboard-img" src="sales_dashboard.png" onclick="openModal(this.src)" />
+    </div>
+    <div class="card">
+      <img class="dashboard-img" src="school_dashboard.png" onclick="openModal(this.src)" />
+    </div>
+    <div class="card">
+      <img class="dashboard-img" src="swiggy_dashboard.png" onclick="openModal(this.src)" />
+    </div>
+   <div class="card">
+      <img class="dashboard-img" src="losu_ card.png" onclick="openModal(this.src)" />
+    </div>
+
+
+  </section>
+
+  <!-- ================= MODAL ================= -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">✖</span>
+      <img id="modalImg" />
+    </div>
+  </div>
+
+  <!-- ================= CONTACT ================= -->
+  <section id="contact" class="reveal">
+    <h2>Contact</h2>
+    <div class="contact">
+      <a href="mailto:yourmail@gmail.com">Email</a>
+      <a href="https://github.com/Sandeepsem">GitHub</a>
+      <a href="#">LinkedIn</a>
+      <a href="https://rotelearner.blogspot.com/">Website</a>
+    </div>
+  </section>
+
+  <!-- ================= SCRIPT ================= -->
+    <script>
+    function toggleMode() {
+      document.body.classList.toggle("light");
+    }
+
+    function openModal(src) {
+      document.getElementById("modal").style.display = "flex";
+      document.getElementById("modalImg").src = src;
+    }
+
+    function closeModal() {
+      document.getElementById("modal").style.display = "none";
+    }
+
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    document.querySelectorAll(".reveal, .timeline").forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
